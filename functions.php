@@ -65,6 +65,11 @@ if ( ! defined( 'HOBBES_S_MODE' ) ) {
 	define( 'HOBBES_S_MODE', true );
 }
 
+//@TODO Think this through a bit.
+if ( ! defined( 'HOBBES_S_SCRIPTS' ) ) {
+	define( 'HOBBES_S_SCRIPTS', false );
+}
+
 if ( HOBBES_S_MODE ) {
 	include_once( 'lib/theme_setup/setup.php' );
 }

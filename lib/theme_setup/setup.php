@@ -101,7 +101,10 @@ function hobbes_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'hobbes_scripts' );
+
+if ( HOBBES_S_MODE && HOBBES_S_SCRIPTS ) {
+	add_action( 'wp_enqueue_scripts', 'hobbes_scripts' );
+}
 
 /**
  * Implement the Custom Header feature.
