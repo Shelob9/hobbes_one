@@ -71,9 +71,9 @@ class default_markup {
 	public $header_after = '</header><!--#masthead--><div id="content" class="site-content">';
 	public $content_before = '<div id="primary" class="content-area">';
 	public $main_before = '<main id="main" class="site-main" role="main">';
-	public $loop_before = 'loop before';
-	public $entry_before = 'entry before';
-	public $entry_after = 'entry after';
+	public $loop_before = '';
+	public $entry_before = '';
+	public $entry_after = '';
 	public $loop_after = '';
 	public $main_after = '</div><!--#main-->';
 	public $sidebar_before = '<div id="secondary" class="widget-area" role="complementary">';
@@ -111,6 +111,5 @@ class default_markup {
 		return $markup;
 
 	}
-
 
 } 
