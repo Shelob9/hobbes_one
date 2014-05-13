@@ -1,1 +1,1 @@
-{@post-title}
+{@post_title}
