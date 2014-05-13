@@ -83,4 +83,87 @@ if ( defined( 'JP_DEBUG' ) && JP_DEBUG )  {
 	include_once( 'lib/jp_debug.php' );
 }
 
+if ( ! function_exists( 'hobbes_sidebar' ) ) :
+	/**
+	 * Sidebar function
+	 *
+	 * @since 0.0.1
+	 */
+	function hobbes_sidebar( $name = null ) {
+		/**
+		 * Filter to override which sidebar we are using.
+		 *
+		 * @see https://core.trac.wordpress.org/ticket/26636
+		 *
+		 * @since 0.0.1
+		 */
+		$name = apply_filters( 'hobbes_get_sidebar', $name );
+		$view = trailingslashit( HT_DMS_VIEW_DIR ) . $name . '.php';
+
+		/**
+		 * Filter to prevent sidebar
+		 *
+		 * @param bool
+		 *
+		 * @since 0.0.1
+		 */
+		if ( apply_filters( 'hobbes_no_sidebar', FALSE ) === FALSE ) {
+			if ( file_exists( $view ) ) {
+				pods_view( $view, $expires = DAY_IN_SECONDS, $cache_mode = 'cache' );
+			}
+			else {
+
+				get_sidebar( $name );
+			}
+		}
+
+	}
+endif;
+
+if ( ! function_exists( 'hobbes_header' ) ) :
+	/**
+	 * Header function
+	 *
+	 * @param 	string	$name	Name of header.
+	 *
+	 * @returns	string			The header.
+	 *
+	 * @since 0.0.1
+	 */
+	function hobbes_header( $name = null ) {
+		/**
+		 * Override which header is returned;
+		 *
+		 * @param string $name Name of header.
+		 *
+		 * @since 0.0.1
+		 */
+		$name = apply_filters( 'hobbes_header', $name );
+		pods_view( get_header( $name ), $expires = DAY_IN_SECONDS, $cache_mode = 'cache' );
+	}
+endif;
+
+if ( ! function_exists( 'hobbes_footer' ) ) :
+	/**
+	 * footer function
+	 *
+	 * @param 	string	$name	Name of footer.
+	 *
+	 * @returns	string			The footer.
+	 *
+	 * @since 0.0.1
+	 */
+	function hobbes_footer( $name = null ) {
+		/**
+		 * Override which footer is returned;
+		 *
+		 * @param string $name Name of footer.
+		 *
+		 * @since 0.0.1
+		 */
+		$name = apply_filters( 'hobbes_footer', $name );
+		pods_view( get_footer( $name ), $expires = DAY_IN_SECONDS, $cache_mode = 'cache' );
+	}
+endif;
+
 

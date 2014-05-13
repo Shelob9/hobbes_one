@@ -76,6 +76,10 @@ class default_markup {
 	public $entry_after = 'entry after';
 	public $loop_after = '';
 	public $main_after = '</div><!--#main-->';
+	public $sidebar_before = '<div id="secondary" class="widget-area" role="complementary">';
+	public $sidebar_inside_before = '';
+	public $sidebar_inside_after = '';
+	public $sidebar_after = '</div><!--#secondary-->';
 	public $content_after = '</div><!--#primary-->';
 	public $footer_top = '</div><!--#content-->';
 	public $footer_before = '<footer id="colophon" class="site-footer" role="contentinfo">';
