@@ -1,6 +1,6 @@
 <?php
 /**
- * Main index
+ * Main index -- should be the only template needed.
  *
  * @package   @hobbes
  * @author    Josh Pollock <Josh@JoshPress.net>
@@ -28,7 +28,6 @@ else {
 		}
 	}
 }
-
 
 hobbes_loop_after();
 
