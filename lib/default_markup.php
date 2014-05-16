@@ -45,8 +45,8 @@ class default_markup {
 	 *
 	 * @since 0.0.1
 	 */
-	function __call($func, $params){
-		if( in_array($func, array_keys( $this->markup() ) ) ) {
+	function __call( $func, $params){
+		if( in_array( $func, array_keys( $this->markup() ) ) ) {
 			$out = $this->markup();
 			echo $out[ $func ];
 		}
@@ -94,7 +94,7 @@ class default_markup {
 	 *
 	 * @return array
 	 */
-	private function markup() {
+	function markup() {
 
 		return (array) $this;
 
@@ -108,6 +108,13 @@ class default_markup {
 	 * @since 0.0.1
 	 */
 	public function filtered() {
+		/**
+		 * Filter to override default markup.
+		 *
+		 * Use this filter to change default markup, or extend this class to change variables, or hook any action that this class uses.
+		 *
+		 * @since 0.0.1
+		 */
 		$markup = apply_filters( 'hobbes_default_markup', $this->markup() );
 
 		return $markup;
