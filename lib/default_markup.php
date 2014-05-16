@@ -30,7 +30,9 @@ class default_markup {
 		$hooks = $this->filtered();
 
 		foreach ( $hooks as $hook => $value  ) {
-			add_action( "hobbes_{$hook}", array ( $this, "{$hook}" ) );
+			if ( ! has_action( "hobbes_{$hook}" ) ) {
+				add_action( "hobbes_{$hook}", array ( $this, "{$hook}" ) );
+			}
 		}
 
 	}
