@@ -30,7 +30,7 @@ class default_model {
 		return $instance;
 	}
 
-	function default_model( $view = null, $data = null, $magic = true, $obj = null,  $return = true, $cache_mode = 'transient', $expires = false, $key = null ) {
+	function default_model( $view = null, $data = null, $magic = true, $obj = null, $post_entry = true, $return = true, $cache_mode = 'transient', $expires = false, $key = null ) {
 
 		global $post;
 
@@ -43,16 +43,6 @@ class default_model {
 		if ( is_null( $view ) ) {
 
 			$view = $this->view_loader( $view );
-			if ( !file_exists( $view ) ) {
-				return 'file doesn\t exist -- '.$view;
-			}
-
-		}
-		else {
-
-			if ( $view )  {
-				return 'file doesn\'t exist -- '.$view;
-			}
 
 		}
 
@@ -71,7 +61,9 @@ class default_model {
 
 			$before = apply_filters( 'foo_before_part', '', $obj, $key );
 			$before .= apply_filters( 'foo_before_magic_part', '', $obj, $key );
-
+			if ( $post_entry ) {
+				$before .= hobbes_post_before();
+			}
 
 			//should be theme_slug
 			$group = 'hobbes_parts';
@@ -85,13 +77,16 @@ class default_model {
 				}
 			}
 
+
 			$value = hobbes_do_template(  $view  , $obj );
 
 			pods_view_set( $key, $value, $expires, $cache_mode, $group );
 
-
 			$after = apply_filters( 'foo_after_part', '', $obj, $key );
 			$after .= apply_filters( 'foo_after_magic_part', '', $obj, $key );
+			if ( $post_entry ) {
+				$after .= hobbes_post_after();
+			}
 
 			$part = $before.$value.$after;
 
@@ -128,23 +123,32 @@ class default_model {
 	}
 
 	function view_loader( $file_name ) {
-		$context = $this->context();
-		$context = $context[0].'.php';
-		if ( file_exists( trailingslashit( $this->primary_view_dir() ).$context ) ) {
-			return trailingslashit( $this->primary_view_dir() ).$context;
+		$contexts = $this->context();
+
+		foreach ( $contexts as $context  ) {
+			$context = $context.'.php';
+			if ( file_exists( trailingslashit( $this->primary_view_dir() ) . $context ) ) {
+				return trailingslashit( $this->primary_view_dir() ) . $context;
+			}
+			elseif ( file_exists( trailingslashit( get_stylesheet_directory() ) ) . 'views/' . $context ) {
+				return  trailingslashit( get_stylesheet_directory() )  . 'views/' . $context;
+			}
+			elseif ( file_exists( trailingslashit( $this->primary_view_dir() ) . 'loop.php' ) ) {
+				return trailingslashit( $this->primary_view_dir() ) . 'loop.php';
+			}
+			elseif ( file_exists( trailingslashit( get_stylesheet_directory() ) ) . 'view/loop.php' ) {
+				return  trailingslashit( get_stylesheet_directory() ) . 'views/loop.php';
+			}
+			else {
+
+			}
 		}
-		elseif ( file_exists( trailingslashit( get_stylesheet_directory() ) ) . $context ) {
-			return file_exists( trailingslashit( get_stylesheet_directory() ) ) . $context;
-		}
-		elseif ( file_exists( trailingslashit( $this->primary_view_dir() ).'loop.php' ) ) {
-			return trailingslashit( $this->primary_view_dir() ).'loop.php';
-		}
-		elseif ( file_exists( trailingslashit( get_stylesheet_directory() ) ) . 'loop.php' ) {
-			return trailingslashit( get_stylesheet_directory() ) . 'loop.php';
-		}
-		else {
-			wp_die( 'no view to parse!' );
-		}
+
+		$view = trailingslashit( $this->primary_view_dir() ) .'loop.php';
+
+		return $view;
+
+
 
 	}
 

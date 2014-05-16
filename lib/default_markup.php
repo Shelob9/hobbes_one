@@ -72,8 +72,8 @@ class default_markup {
 	public $content_before = '<div id="primary" class="content-area">';
 	public $main_before = '<main id="main" class="site-main" role="main">';
 	public $loop_before = '';
-	public $entry_before = '';
-	public $entry_after = '';
+	public $post_before = '<div class="post-entry">';
+	public $post_after = '</div><!--.post-entry-->';
 	public $loop_after = '';
 	public $main_after = '</div><!--#main-->';
 	public $sidebar_before = '<div id="secondary" class="widget-area" role="complementary">';

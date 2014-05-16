@@ -17,7 +17,18 @@ hobbes_main_before();
 
 hobbes_loop_before();
 
-echo hobbes_part(  );
+if ( is_singular() || is_page() ) {
+	echo hobbes_part();
+}
+else {
+	if ( have_posts() ) {
+		while ( have_posts()  ) {
+			the_post( );
+			echo hobbes_part();
+		}
+	}
+}
+
 
 hobbes_loop_after();
 
@@ -27,5 +38,4 @@ hobbes_content_after();
 
 
 get_footer();
-
 
