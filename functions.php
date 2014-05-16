@@ -83,13 +83,13 @@ if ( defined( 'JP_DEBUG' ) && JP_DEBUG )  {
 	include_once( 'lib/jp_debug.php' );
 }
 
-if ( ! function_exists( 'hobbes_sidebar' ) ) :
+if ( ! function_exists( 'hobbes_get_sidebar' ) ) :
 	/**
 	 * Sidebar function
 	 *
 	 * @since 0.0.1
 	 */
-	function hobbes_sidebar( $name = null ) {
+	function hobbes_get_sidebar( $name = null ) {
 		/**
 		 * Filter to override which sidebar we are using.
 		 *
@@ -98,7 +98,7 @@ if ( ! function_exists( 'hobbes_sidebar' ) ) :
 		 * @since 0.0.1
 		 */
 		$name = apply_filters( 'hobbes_get_sidebar', $name );
-		$view = trailingslashit( HT_DMS_VIEW_DIR ) . $name . '.php';
+		$view = trailingslashit( hobbes_default_model()->primary_view_dir() ) . $name . '.php';
 
 		/**
 		 * Filter to prevent sidebar
@@ -108,29 +108,29 @@ if ( ! function_exists( 'hobbes_sidebar' ) ) :
 		 * @since 0.0.1
 		 */
 		if ( apply_filters( 'hobbes_no_sidebar', FALSE ) === FALSE ) {
-			if ( file_exists( $view ) ) {
-				pods_view( $view, $expires = DAY_IN_SECONDS, $cache_mode = 'cache' );
-			}
-			else {
 
-				get_sidebar( $name );
+			if (!  file_exists( $view ) ) {
+				$view = get_sidebar( $name );
 			}
+
+			pods_view( $view, DAY_IN_SECONDS, 'transient'  );
+
 		}
 
 	}
 endif;
 
-if ( ! function_exists( 'hobbes_header' ) ) :
+if ( ! function_exists( 'hobbes_get_header' ) ) :
 	/**
 	 * Header function
 	 *
 	 * @param 	string	$name	Name of header.
 	 *
-	 * @returns	string			The header.
+	 * @return	string			The header.
 	 *
-	 * @since 0.0.1
+	 * @since 	0.0.1
 	 */
-	function hobbes_header( $name = null ) {
+	function hobbes_get_header( $name = null ) {
 		/**
 		 * Override which header is returned;
 		 *
@@ -138,22 +138,22 @@ if ( ! function_exists( 'hobbes_header' ) ) :
 		 *
 		 * @since 0.0.1
 		 */
-		$name = apply_filters( 'hobbes_header', $name );
-		pods_view( get_header( $name ), $expires = DAY_IN_SECONDS, $cache_mode = 'cache' );
+		$name = apply_filters( 'hobbes_get_header', $name );
+		pods_view( get_header( $name ), DAY_IN_SECONDS, 'transient' );
 	}
 endif;
 
-if ( ! function_exists( 'hobbes_footer' ) ) :
+if ( ! function_exists( 'hobbes_get_footer' ) ) :
 	/**
 	 * footer function
 	 *
 	 * @param 	string	$name	Name of footer.
 	 *
-	 * @returns	string			The footer.
+	 * @return	string			The footer.
 	 *
-	 * @since 0.0.1
+	 * @since 	0.0.1
 	 */
-	function hobbes_footer( $name = null ) {
+	function hobbes_get_footer( $name = null ) {
 		/**
 		 * Override which footer is returned;
 		 *
@@ -161,8 +161,8 @@ if ( ! function_exists( 'hobbes_footer' ) ) :
 		 *
 		 * @since 0.0.1
 		 */
-		$name = apply_filters( 'hobbes_footer', $name );
-		pods_view( get_footer( $name ), $expires = DAY_IN_SECONDS, $cache_mode = 'cache' );
+		$name = apply_filters( 'hobbes_get_footer', $name );
+		pods_view( get_footer( $name ), DAY_IN_SECONDS, 'transient' );
 	}
 endif;
 

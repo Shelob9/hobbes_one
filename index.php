@@ -9,7 +9,7 @@
  * @copyright 2014 Josh Pollock
  */
 
-get_header();
+hobbes_get_header();
 
 hobbes_content_before();
 
@@ -36,6 +36,4 @@ hobbes_main_after();
 
 hobbes_content_after();
 
-
-get_footer();
-
+hobbes_get_footer();

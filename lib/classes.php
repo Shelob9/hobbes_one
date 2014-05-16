@@ -3,12 +3,18 @@
 
 function hobbes_part( $view = null, $data = null, $magic = true, $obj = null, $post_entry = true, $return = true, $cache_mode = 'transient', $expires = false, $key = null ) {
 
-	require_once( 'default_model.php' );
-	$default_model = hobbes\default_model::init();
+	$default_model = hobbes_default_model();
 
 	$part = $default_model->default_model( $view, $data, $magic, $obj, $post_entry, $return, $cache_mode, $expires, $key);
 
 	return $part;
+
+}
+
+function hobbes_default_model() {
+	require_once( 'default_model.php' );
+
+	return hobbes\default_model::init();
 
 }
 
@@ -26,3 +32,5 @@ function hobbes_do_template( $file, $obj ) {
 		wp_die( $file );
 	}
 }
+
+
