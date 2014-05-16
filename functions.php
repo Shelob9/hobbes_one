@@ -180,3 +180,35 @@ function hobbes_cache_clear() {
 		pods_view_clear( TRUE, $cache_mode, 'hobbes' );
 	}
 }
+
+/**
+ * Add admin bar link to reset cache
+ *
+ * @since 0.0.1
+ */
+add_action( 'admin_bar_menu', array( $this, 'hobbes_toolbar_cache_reset')  );
+function hobbes_toolbar_cache_reset( $wp_admin_bar ) {
+	$message = 'Clear '.apply_filters( 'hobbes_theme_name', 'Hobbes' ).' Cache';
+	$args = array(
+		'id'    => 'hobbes_cache_clear',
+		'title' => __( $message, 'hobbes'),
+		'href'  => site_url( '?hobbes-clear-cache' ),
+		'meta'  => ''
+	);
+	$wp_admin_bar->add_node( $args );
+}
+
+/**
+ * Action to clear cache, when clear cache link is clicked.
+ *
+ * @since 0.0.1
+ */
+add_action( 'init', 'hobbes_cache_Clear_action' );
+function hobbes_cache_clear_action() {
+	$action = pods_v( 'hobbes-clear-cache', 'get', false, true );
+	if ( $action ) {
+		hobbes_cache_clear();
+
+	}
+
+}
