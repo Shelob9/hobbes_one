@@ -35,6 +35,9 @@ class default_markup {
 			}
 		}
 
+		add_action( 'hobbes_main_after', array( $this, 'sidebar' ) );
+		add_action( 'hobbes_sidebar_inside_before', array( $this, 'widgets' ) );
+
 	}
 
 	/**
@@ -118,6 +121,18 @@ class default_markup {
 		$markup = apply_filters( 'hobbes_default_markup', $this->markup() );
 
 		return $markup;
+
+	}
+
+	public function sidebar() {
+
+		echo hobbes_get_sidebar();
+
+	}
+
+	public function widgets() {
+
+		echo dynamic_sidebar( 'sidebar-1' );
 
 	}
 
