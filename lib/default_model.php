@@ -30,7 +30,7 @@ class default_model {
 		return $instance;
 	}
 
-	function default_model( $view = null, $data = null, $magic = true, $obj = null, $post_entry = true, $return = true, $cache_mode = 'transient', $expires = false, $key = null ) {
+	function default_model( $view = null, $data = null, $magic = true, $obj = null, $post_entry = true, $return = true, $cache_mode = 'transient', $expires = DAY_IN_SECONDS, $key = null ) {
 
 		global $post;
 

@@ -1,7 +1,7 @@
 <?php
 
 
-function hobbes_part( $view = null, $data = null, $magic = true, $obj = null, $post_entry = true, $return = true, $cache_mode = 'transient', $expires = false, $key = null ) {
+function hobbes_part( $view = null, $data = null, $magic = true, $obj = null, $post_entry = true, $return = true, $cache_mode = 'transient', $expires = DAY_IN_SECONDS, $key = null ) {
 
 	$default_model = hobbes_default_model();
 
@@ -24,13 +24,13 @@ function hobbes_do_template( $file, $obj ) {
 		//$template = ??;
 		wp_die( 'Pods Frontier is activated, but Josh didn\'t build compatibility with it yet. Sadly, You must disable Pods Frontier.' );
 	}
-	if ( file_exists( $file ) ) {
-		$view = file_get_contents( $file );
-		return Pods_Templates::do_template( $view, $obj );
+	if (! file_exists( $file ) ) {
+		$file = trailingslashit( hobbes_default_model()->primary_view_dir() ).'loop.php';
 	}
-	else {
-		wp_die( $file );
-	}
+	$view = file_get_contents( $file );
+	return Pods_Templates::do_template( $view, $obj );
+
+
 }
 
 

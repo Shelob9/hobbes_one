@@ -166,4 +166,17 @@ if ( ! function_exists( 'hobbes_get_footer' ) ) :
 	}
 endif;
 
-
+/**
+ * Delete all transients set by theme
+ *
+ * @since 0.0.1
+ */
+if ( WP_DEBUG ) {
+	add_action( 'init', 'hobbes_cache_clear' );
+}
+function hobbes_cache_clear() {
+	$modes = array( 'transient', 'site_transient', 'cache' );
+	foreach ( $modes as $cache_mode  ) {
+		pods_view_clear( TRUE, $cache_mode, 'hobbes' );
+	}
+}
