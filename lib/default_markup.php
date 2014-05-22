@@ -14,14 +14,6 @@ namespace hobbes;
 
 class default_markup {
 
-	/**
-	 * Holds the instance of this class.
-	 *
-	 * @since  0.0.1
-	 * @access private
-	 * @var    object
-	 */
-	private static $instance;
 
 	function __construct() {
 
@@ -55,20 +47,6 @@ class default_markup {
 		}
 	}
 
-	/**
-	 * Returns the instance.
-	 *
-	 * @since  0.0.1
-	 * @access public
-	 * @return object
-	 */
-	public static function init() {
-
-		if ( !self::$instance )
-			self::$instance = new self;
-
-		return self::$instance;
-	}
 
 	public $top = '<div id="page" class="hfeed site">';
 	public $header_before = '<header id="masthead" class="site-header" role="banner">';
@@ -134,6 +112,31 @@ class default_markup {
 
 		echo dynamic_sidebar( 'sidebar-1' );
 
+	}
+	
+	/**
+	 * Holds the instance of this class.
+	 *
+	 * @since  0.0.1
+	 * @access private
+	 * @var    object
+	 */
+	private static $instance;
+
+	
+	/**
+	 * Returns the instance.
+	 *
+	 * @since  0.0.1
+	 * @access public
+	 * @return object
+	 */
+	public static function init() {
+
+		if ( !self::$instance )
+			self::$instance = new self;
+
+		return self::$instance;
 	}
 
 } 
